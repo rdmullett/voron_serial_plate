@@ -9,7 +9,7 @@ Additionally, this currently only has the larger clip variant for the back. Othe
 
 The customizer allows you to choose if you want a logo, and the text should allow you to input your own Serial number.
 
-Since customizer is broken (seems it's been broken for months and thingiverse won't fix it) you can use the following method to run customizer on your own computer:
+Since customizer is broken on thingiverse (seems it's been broken for months and thingiverse won't fix it) you can use the following method to run customizer on your own computer:
 
     1. Download Openscad on your computer. - http://www.openscad.org/downloads.html
     2. Install the proper Voron font from here - https://fonts.google.com/specimen/Play?preview.text_type=custom .
