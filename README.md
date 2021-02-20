@@ -1,6 +1,8 @@
 # voron_serial_plate
 This is a serial plate creator for Voron machines.
 
+![VoronSerialPlate](https://raw.githubusercontent.com/rdmullett/voron_serial_plate/main/Voron_Serial_Plate.jpg)
+
 At the present moment it does not support lengthened serial numbers, so the project will need to be updated to allow serials that are longer in the future.
 
 Additionally, this currently only has the larger clip variant for the back. Other sizes will be added in the future so that it can be used on a side panel if desired.
