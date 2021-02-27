@@ -1,5 +1,7 @@
 # voron_serial_plate
-This is a serial plate creator for Voron machines.
+This is a serial plate creator for Voron machines. This is being used in an upcoming Reddit bot, which will automatically provide serial plates for all users that get a serial number for their printer. Details on that project can be found here:
+
+[voron nameplate bot](https://github.com/rdmullett/voron_nameplate_bot)
 
 ![VoronSerialPlate](https://raw.githubusercontent.com/rdmullett/voron_serial_plate/main/Voron_Serial_Plate.jpg)
 
