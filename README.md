@@ -28,3 +28,4 @@ Since customizer is broken on thingiverse (seems it's been broken for months and
 	7. Export as STL with the little "STL" button on the toolbar on the left
 	8. Gaze in awe at my SCAD code because this is my first project using it.
 
+Credit for the V0 remix goes to oldfartt from thingiverse: https://www.thingiverse.com/thing:4947518
