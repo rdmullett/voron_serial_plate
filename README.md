@@ -1,13 +1,11 @@
 # voron_serial_plate
-This is a serial plate creator for Voron machines. This is being used in an upcoming Reddit bot, which will automatically provide serial plates for all users that get a serial number for their printer. Details on that project can be found here:
+This is a serial plate creator for Voron machines. This is used as part of the backend by the voron_nameplate_bot on the /r/voroncorexy subreddit in order to automatically provide serial plates for all users that get a serial number for their printer. Details on that project can be found here:
 
 [voron nameplate bot](https://github.com/rdmullett/voron_nameplate_bot)
 
 ![VoronSerialPlate](https://raw.githubusercontent.com/rdmullett/voron_serial_plate/main/Voron_Serial_Plate.jpg)
 
-At the present moment it does not support lengthened serial numbers, so the project will need to be updated to allow serials that are longer in the future.
-
-Additionally, this currently only has the larger clip variant for the back. Other sizes will be added in the future so that it can be used on a side panel if desired.
+The project currently provides nameplates which fit on 2020 extrusion for all printers except for the V0, which has a plate that should fit 1515 extrusion.
 
 The customizer allows you to choose if you want a logo, and the text should allow you to input your own Serial number.
 
