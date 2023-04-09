@@ -1,9 +1,10 @@
 font1="Play";
 serial="VX.XXX";
 logo=true;
+zero_dot_two=true;
 serial_length=len(serial);
 
-baseplate= logo ? "Serial_Plate_Voron0_Logo.stl" : "Serial_Plate_Voron0_NoLogo.stl";
+baseplate= logo ? zero_dot_two ? "Serial_Plate_Voron0.2_Logo.stl" : "Serial_Plate_Voron0_Logo.stl" : zero_dot_two ? "Serial_Plate_Voron0.2_NoLogo.stl" : "Serial_Plate_Voron0_NoLogo.stl";
 
 length_to_move= (serial_length<=7)? -41.5 : -46.5;
 
