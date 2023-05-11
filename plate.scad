@@ -9,6 +9,9 @@ module plate(serial = "VX.XXXX") {
     font_size = 8;
     font_face = "Play";
 
+    screw_offset = 13.5;
+    screw_pos = width / 2 - screw_offset;
+
     epsilon = .01;
 
     module base() {
@@ -38,9 +41,26 @@ module plate(serial = "VX.XXXX") {
         };
     };
 
+    module screw_hole(x) {
+        inner_diameter = 1.9;
+        outer_diameter = 2.9;
+        surface_diameter = 3;
+        taper_length = 1;
+
+        translate([x,height/2,-epsilon]) union() {
+            translate([0, 0, -10]) cylinder(20, r = inner_diameter);
+            cylinder(taper_length, inner_diameter, outer_diameter);
+            translate([0,0,1 - epsilon]) cylinder(10, r = surface_diameter);
+        }
+    }
+
     difference() {
         base();
-        translate([0, (height - font_size) / 2, engraving_depth]) linear_extrude(10, convexity=len(serial) + 4)
-            text(text=serial, font = font_face, halign = "center", size = font_size);
+        union() {
+            translate([0, (height - font_size) / 2, engraving_depth]) linear_extrude(10, convexity=len(serial) + 4)
+                text(text=serial, font = font_face, halign = "center", size = font_size);
+            screw_hole(screw_pos);
+            screw_hole(-screw_pos);
+        }
     }
 }
