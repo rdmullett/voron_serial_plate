@@ -3,6 +3,12 @@ module plate(serial = "VX.XXXX") {
     width_0 = 15.23;
     char_width = 10;
     width = width_0 + len(serial) * char_width;
+
+    engraving_depth = 2;
+
+    font_size = 8;
+    font_face = "Play";
+
     epsilon = .01;
 
     module base() {
@@ -32,5 +38,9 @@ module plate(serial = "VX.XXXX") {
         };
     };
 
-    base();
+    difference() {
+        base();
+        translate([0, (height - font_size) / 2, engraving_depth]) linear_extrude(10, convexity=len(serial) + 4)
+            text(text=serial, font = font_face, halign = "center", size = font_size);
+    }
 }
