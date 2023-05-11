@@ -1,4 +1,4 @@
-module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_depth = 2) {
+module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_depth = 2, text_thickener = 0) {
     height=20;
     width_0 = 15.23;
     char_width = 10;
@@ -85,7 +85,8 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_de
         base();
         union() {
             translate([0, (height - font_size) / 2, engraving_depth]) linear_extrude(10, convexity=len(serial) + 4)
-                text(text=serial, font = font_face, halign = "center", size = font_size);
+                offset(delta = text_thickener)
+                    text(text=serial, font = font_face, halign = "center", size = font_size);
             screw_hole(screw_pos);
             screw_hole(-screw_pos);
             if (logo) {
