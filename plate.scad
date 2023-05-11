@@ -1,4 +1,4 @@
-module plate(serial = "VX.XXXX", logo = true, depth_offset = 5) {
+module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_depth = 2) {
     height=20;
     width_0 = 15.23;
     char_width = 10;
@@ -19,6 +19,7 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5) {
         shoulder_width=5;
         radius = 2;
         radius_top = 2.85;
+        alignment_bar_height = 6;
 
         module corner(pos = [0,0,0], r = radius) {
             thickness = 3;
@@ -47,6 +48,11 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5) {
                 translate([width/2 + radius, shoulder_height, -depth_offset])
                     cylinder(depth_offset + epsilon, r = radius);
             }
+        }
+
+        translate([0, height/2, -alignment_bar_depth/2 - depth_offset]) {
+            alignment_bar_width = width - screw_offset * 3;
+            cube([alignment_bar_width, alignment_bar_height, alignment_bar_depth + epsilon], center = true);
         }
     };
 
