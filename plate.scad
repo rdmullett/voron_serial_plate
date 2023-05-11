@@ -1,4 +1,4 @@
-module plate(serial = "VX.XXXX", logo = true) {
+module plate(serial = "VX.XXXX", logo = true, depth_offset = 5) {
     height=20;
     width_0 = 15.23;
     char_width = 10;
@@ -39,6 +39,15 @@ module plate(serial = "VX.XXXX", logo = true) {
                 corner([width/2+radius-radius_top, shoulder_height, 0], radius_top);
             };
         };
+
+        hull() for (flip = [0:1]) {
+            mirror([flip,0,0]) {
+                translate([width/2, radius * 2, -depth_offset])
+                    cylinder(depth_offset + epsilon, r = radius * 2);
+                translate([width/2 + radius, shoulder_height, -depth_offset])
+                    cylinder(depth_offset + epsilon, r = radius);
+            }
+        }
     };
 
     module screw_hole(x) {
