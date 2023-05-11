@@ -1,4 +1,4 @@
-module plate(serial = "VX.XXXX") {
+module plate(serial = "VX.XXXX", logo = true) {
     height=20;
     width_0 = 15.23;
     char_width = 10;
@@ -54,6 +54,18 @@ module plate(serial = "VX.XXXX") {
         }
     }
 
+    module voron_logo() {
+        scale_factor = 3.02;
+        scale([scale_factor,scale_factor, 1]) linear_extrude(5, convexity = 4) difference() {
+            polygon([[0,2], [sqrt(3),1], [sqrt(3),-1], [0,-2], [-sqrt(3),-1], [-sqrt(3),1]]);
+            union() {
+                polygon([[.4543,1.0884],[.9775,1.0884], [-.4541,-1.0892], [-.9772,-1.0892]]);
+                polygon([[.5102, -1.0892], [-.013, -1.0892], [.7025, -.0005], [1.2257,-.0005]]);
+                polygon([[-.5102, 1.0892], [.013, 1.0892], [-.7025, .0005], [-1.2257,.0005]]);
+            }
+        }
+    }
+
     difference() {
         base();
         union() {
@@ -61,6 +73,12 @@ module plate(serial = "VX.XXXX") {
                 text(text=serial, font = font_face, halign = "center", size = font_size);
             screw_hole(screw_pos);
             screw_hole(-screw_pos);
+            if (logo) {
+                // Coordinates to the center of the logo, relative to left and bottom edges
+                xoff = 4.75; ypos = 9.67;
+
+                translate([xoff - width/2, ypos, engraving_depth]) voron_logo();
+            }
         }
     }
 }
