@@ -66,7 +66,7 @@ module plate(serial = "VX.XXXX", logo = true) {
         }
     }
 
-    difference() {
+    rotate([180,0,0]) difference() {
         base();
         union() {
             translate([0, (height - font_size) / 2, engraving_depth]) linear_extrude(10, convexity=len(serial) + 4)
