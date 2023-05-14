@@ -129,7 +129,7 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_de
             }
             if (logo) {
                 // Coordinates to the center of the logo, relative to left and bottom edges
-                xoff = 4.75; ypos = 9.67;
+                xoff = screws ? 4.75 : 7; ypos = 9.67;
 
                 translate([xoff - width/2, ypos, engraving_depth]) voron_logo();
             }
