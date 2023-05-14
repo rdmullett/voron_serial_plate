@@ -1,4 +1,4 @@
-module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_depth = 2, text_thickener = 0) {
+module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_depth = 2, text_thickener = 0, screws = true, pegs = false, alignment_bar_height = 6) {
     height=20;
     width_0 = 15.23;
     char_width = 10;
@@ -12,6 +12,10 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_de
     screw_offset = 13.5;
     screw_pos = width / 2 - screw_offset;
 
+    peg_offset = 10.5;
+    peg_pos = width / 2 - peg_offset;
+    peg_thickness = 4.6;
+
     epsilon = .01;
 
     module base() {
@@ -19,7 +23,6 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_de
         shoulder_width=5;
         radius = 2;
         radius_top = 2.85;
-        alignment_bar_height = 6;
 
         module corner(pos = [0,0,0], r = radius) {
             thickness = 3;
@@ -81,20 +84,62 @@ module plate(serial = "VX.XXXX", logo = true, depth_offset = 5, alignment_bar_de
         }
     }
 
+    module peg() {
+        module thicken(distance=1) {
+            hull() for (i = [0 : 1]) {
+                translate([0, distance*i, 0]) children();
+            }
+        }
+
+        module rotate_extrude_offset(a = 90) {
+                rotate([90,a,0]) rotate_extrude(angle = a) children();
+        }
+
+
+        thicken(peg_thickness) {
+            cylinder(epsilon, r=0.2);
+            translate([2.596,0,0]) cylinder(5, r=0.2);
+            translate([1.8,0,5.2]) rotate([90,0,0]) rotate_extrude() translate([.8,0]) circle(.2);
+            translate([-.2,0,6]) rotate([0,90,0]) cylinder(2, r=.2);
+        }
+        thicken(peg_thickness) {
+            translate([-.2,0,4.7]) rotate([90,0,0]){
+                rotate_extrude() translate([1.3,0]) circle(.2);
+                translate([0,0,-.2]) cylinder(.4, r = 1.3);
+            }
+        }
+        for (i=[0:1]) translate ([-1.2,peg_thickness*i,2.35]) rotate([0,300,0]) rotate_extrude_offset(60) translate([1.3,0]) {
+            circle(.2);
+            translate([0,-.2]) square(.4);
+        }
+        translate([-1.2,0,2.35]) rotate([0,300,0]) rotate_extrude_offset(60) translate([1.1,-peg_thickness]) square([1,peg_thickness]);
+        for (i=[0:1]) translate([3.8,i*peg_thickness,1.2]) rotate([0,90,0]) rotate_extrude_offset() translate([1.2,0]) { circle(.2); translate([0,-.2]) square([1,.4]); };
+        translate([3.8,0,1.2]) rotate([0,90,0]) rotate_extrude_offset() translate([1.1,-peg_thickness]) square([1,peg_thickness]);
+    }
+
     rotate([180,0,0]) difference() {
         base();
         union() {
             translate([0, (height - font_size) / 2, engraving_depth]) linear_extrude(10, convexity=len(serial) + 4)
                 offset(delta = text_thickener)
                     text(text=serial, font = font_face, halign = "center", size = font_size);
-            screw_hole(screw_pos);
-            screw_hole(-screw_pos);
+            if (screws) {
+                screw_hole(screw_pos);
+                screw_hole(-screw_pos);
+            }
             if (logo) {
                 // Coordinates to the center of the logo, relative to left and bottom edges
                 xoff = 4.75; ypos = 9.67;
 
                 translate([xoff - width/2, ypos, engraving_depth]) voron_logo();
             }
+        }
+    }
+
+    if (pegs) {
+        for (i = [-1:2:1])
+        translate([i*peg_pos,-height/2-peg_thickness/2,depth_offset-.2]) {
+            mirror([(i-1)/-2,0,0]) peg();
         }
     }
 }
